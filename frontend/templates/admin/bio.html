@@ -1,0 +1,272 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Manage Bio & Social{% endblock %}
+
+{% block page_title %}Bio & Social Links{% endblock %}
+{% block page_subtitle %}Update your personal information and social media links{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Bio Information -->
+    <div>
+        <div class="glassmorphism rounded-2xl p-6 neon-hover">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-user text-cyan-400 mr-3"></i>
+                Personal Information
+            </h3>
+
+            <form method="POST" action="{{ url_for('admin.update_bio') }}" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Full Name *</label>
+                    <input type="text" name="name" value="{{ bio.name if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Tagline</label>
+                    <input type="text" name="tagline" value="{{ bio.tagline if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
+                           placeholder="Full-Stack Developer & AI Enthusiast">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">About Me *</label>
+                    <textarea name="about_me" rows="6" 
+                              class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
+                              required>{{ bio.about_me if bio }}</textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Email *</label>
+                    <input type="email" name="email" value="{{ bio.email if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Phone</label>
+                    <input type="text" name="phone" value="{{ bio.phone if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Location</label>
+                    <input type="text" name="location" value="{{ bio.location if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-white font-semibold mb-2">Resume URL</label>
+                    <input type="url" name="resume_url" value="{{ bio.resume_url if bio }}" 
+                           class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
+                           placeholder="/static/docs/resume.pdf">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-white font-semibold mb-2">Profile Image</label>
+                    <input type="file" name="profile_image" accept="image/*" 
+                           class="w-full text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-cyan-400 file:text-cyan-900 hover:file:bg-cyan-300">
+                    {% if bio and bio.profile_image %}
+                    <div class="mt-3 p-3 bg-white/5 rounded-lg">
+                        <p class="text-cyan-400 text-sm font-semibold mb-2">Current Profile Image:</p>
+                        <div class="flex items-center space-x-4">
+                            <img src="{{ url_for('static', filename=bio.profile_image) }}" 
+                                 class="w-20 h-20 object-cover rounded-full border-2 border-cyan-400/50">
+                            <div class="text-white/70 text-sm">
+                                <p>Path: {{ bio.profile_image }}</p>
+                                <p class="mt-1">Upload new image to replace</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-white/60 text-sm mt-1">No profile image uploaded yet</p>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-save mr-2"></i>
+                    Update Bio
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Social Links -->
+    <div>
+        <!-- Social Links Management -->
+        <div class="glassmorphism rounded-2xl p-6 neon-hover mb-6">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-share-alt text-blue-400 mr-3"></i>
+                {{ 'Edit Social Link' if edit_social else 'Social Links' }}
+            </h3>
+
+            <!-- Add/Edit Social Link Form -->
+            <div class="mb-6 p-4 bg-white/5 rounded-lg">
+                <h4 class="text-white font-semibold mb-4 flex items-center">
+                    <i class="fas fa-{{ 'edit' if edit_social else 'plus' }} text-cyan-400 mr-2"></i>
+                    {{ 'Edit Social Link' if edit_social else 'Add New Social Link' }}
+                </h4>
+                
+                <form method="POST" 
+                      action="{% if edit_social %}{{ url_for('admin.edit_social_link', id=edit_social.id) }}{% else %}{{ url_for('admin.add_social_link') }}{% endif %}">
+                    
+                    <div class="mb-4">
+                        <label class="block text-white font-semibold mb-2">Platform *</label>
+                        <select name="platform" 
+                                class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                                required>
+                            <option value="">Select Platform</option>
+                            <option value="GitHub" {{ 'selected' if edit_social and edit_social.platform == 'GitHub' }}>GitHub</option>
+                            <option value="LinkedIn" {{ 'selected' if edit_social and edit_social.platform == 'LinkedIn' }}>LinkedIn</option>
+                            <option value="Twitter" {{ 'selected' if edit_social and edit_social.platform == 'Twitter' }}>Twitter</option>
+                            <option value="Instagram" {{ 'selected' if edit_social and edit_social.platform == 'Instagram' }}>Instagram</option>
+                            <option value="Facebook" {{ 'selected' if edit_social and edit_social.platform == 'Facebook' }}>Facebook</option>
+                            <option value="YouTube" {{ 'selected' if edit_social and edit_social.platform == 'YouTube' }}>YouTube</option>
+                            <option value="Discord" {{ 'selected' if edit_social and edit_social.platform == 'Discord' }}>Discord</option>
+                            <option value="Stack Overflow" {{ 'selected' if edit_social and edit_social.platform == 'Stack Overflow' }}>Stack Overflow</option>
+                            <option value="Portfolio" {{ 'selected' if edit_social and edit_social.platform == 'Portfolio' }}>Portfolio</option>
+                            <option value="Other" {{ 'selected' if edit_social and edit_social.platform == 'Other' }}>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-white font-semibold mb-2">URL *</label>
+                        <input type="url" name="url" value="{{ edit_social.url if edit_social }}" 
+                               class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                               placeholder="https://"
+                               required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-white font-semibold mb-2">Icon Class (Font Awesome)</label>
+                        <input type="text" name="icon_class" value="{{ edit_social.icon_class if edit_social }}" 
+                               class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
+                               placeholder="fab fa-github">
+                        <div class="flex items-center mt-2 text-white/60 text-sm">
+                            <i class="fas fa-info-circle text-cyan-400 mr-2"></i>
+                            <span>Leave empty for default platform icons</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-white font-semibold mb-2">Display Order</label>
+                        <input type="number" name="display_order" value="{{ edit_social.display_order if edit_social else '0' }}" 
+                               class="w-full form-input rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                        <p class="text-white/60 text-sm mt-1">Lower numbers display first</p>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-save mr-2"></i>
+                        {{ 'Update Social Link' if edit_social else 'Add Social Link' }}
+                    </button>
+
+                    {% if edit_social %}
+                    <a href="{{ url_for('admin.manage_bio') }}" class="btn-secondary w-full py-3 rounded-lg font-semibold mt-3 text-center block transition-all duration-300">
+                        <i class="fas fa-times mr-2"></i>
+                        Cancel Edit
+                    </a>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- Social Links List -->
+            <div class="border-t border-white/10 pt-6">
+                <h4 class="text-white font-semibold mb-4 flex items-center">
+                    <i class="fas fa-list text-blue-400 mr-2"></i>
+                    All Social Links ({{ social_links|length }})
+                </h4>
+
+                {% if social_links %}
+                <div class="space-y-3">
+                    {% for link in social_links %}
+                    <div class="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                        <div class="flex items-center space-x-4">
+                            {% if link.icon_class %}
+                            <i class="{{ link.icon_class }} text-cyan-400 text-xl"></i>
+                            {% else %}
+                            <i class="fas fa-link text-cyan-400 text-xl"></i>
+                            {% endif %}
+                            <div>
+                                <h4 class="text-white font-semibold">{{ link.platform }}</h4>
+                                <p class="text-cyan-400 text-sm truncate max-w-xs">{{ link.url }}</p>
+                                <p class="text-white/60 text-xs mt-1">Order: {{ link.display_order }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <a href="{{ url_for('admin.manage_bio') }}?edit_social={{ link.id }}" 
+                               class="p-2 text-blue-400 hover:text-blue-300 transition-colors bg-blue-400/10 hover:bg-blue-400/20 rounded-lg"
+                               title="Edit Social Link">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            
+                            <a href="{{ url_for('admin.delete_social_link', id=link.id) }}" 
+                               onclick="return confirm('Are you sure you want to delete this social link?')"
+                               class="p-2 text-red-400 hover:text-red-300 transition-colors bg-red-400/10 hover:bg-red-400/20 rounded-lg"
+                               title="Delete Social Link">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-6">
+                    <i class="fas fa-share-alt text-cyan-400 text-3xl mb-3"></i>
+                    <p class="text-white/70">No social links added yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Current Bio Preview -->
+        <div class="glassmorphism rounded-2xl p-6 neon-hover">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center">
+                <i class="fas fa-eye text-purple-400 mr-3"></i>
+                Bio Preview
+            </h3>
+            
+            {% if bio %}
+            <div class="space-y-3 text-white/80">
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Name:</strong>
+                    <span>{{ bio.name }}</span>
+                </div>
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Tagline:</strong>
+                    <span>{{ bio.tagline or 'Not set' }}</span>
+                </div>
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Email:</strong>
+                    <span>{{ bio.email }}</span>
+                </div>
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Phone:</strong>
+                    <span>{{ bio.phone or 'Not set' }}</span>
+                </div>
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Location:</strong>
+                    <span>{{ bio.location or 'Not set' }}</span>
+                </div>
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">About:</strong>
+                    <span class="flex-1">{{ bio.about_me[:100] }}{% if bio.about_me|length > 100 %}...{% endif %}</span>
+                </div>
+                {% if bio.profile_image %}
+                <div class="flex items-start">
+                    <strong class="text-cyan-400 w-24 flex-shrink-0">Profile Image:</strong>
+                    <div class="flex-1">
+                        <img src="{{ url_for('static', filename=bio.profile_image) }}" 
+                             class="w-16 h-16 object-cover rounded-full border-2 border-cyan-400/50">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <p class="text-white/70 text-center py-4">No bio information set yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
