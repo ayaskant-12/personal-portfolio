@@ -1,0 +1,182 @@
+<div class="container mx-auto px-6">
+    <!-- Section Title -->
+    <div class="text-center mb-16 scroll-animate">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-orbitron">
+            My <span class="text-gradient">Projects</span>
+        </h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"></div>
+    </div>
+
+    <!-- Project Filters -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12 scroll-animate">
+        <button class="project-filter active px-6 py-3 rounded-lg glassmorphism text-white font-semibold transition-all duration-300 hover:bg-cyan-400/20" data-filter="all">
+            All Projects
+        </button>
+        <button class="project-filter px-6 py-3 rounded-lg glassmorphism text-white font-semibold transition-all duration-300 hover:bg-cyan-400/20" data-filter="web">
+            Web Applications
+        </button>
+        <button class="project-filter px-6 py-3 rounded-lg glassmorphism text-white font-semibold transition-all duration-300 hover:bg-cyan-400/20" data-filter="ai">
+            AI/ML
+        </button>
+        <button class="project-filter px-6 py-3 rounded-lg glassmorphism text-white font-semibold transition-all duration-300 hover:bg-cyan-400/20" data-filter="cloud">
+            Cloud
+        </button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for project in projects %}
+        <div class="project-card glassmorphism rounded-2xl overflow-hidden scroll-animate group" data-category="web">
+            <!-- Project Image -->
+            <div class="project-image relative overflow-hidden">
+                <img 
+                    src="{% if project.image_url %}{{ url_for('static', filename=project.image_url) }}{% else %}{{ url_for('static', filename='images/projects/project-default.jpg') }}{% endif %}" 
+                    alt="{{ project.title }}"
+                    class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    onerror="this.src='{{ url_for('static', filename='images/projects/project-default.jpg') }}'"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex space-x-3">
+                            {% if project.project_link %}
+                            <a href="{{ project.project_link }}" target="_blank" class="flex-1 bg-cyan-400 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-cyan-500 transition-colors">
+                                <i class="fas fa-external-link-alt mr-1"></i>Demo
+                            </a>
+                            {% endif %}
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="flex-1 bg-gray-700 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-github mr-1"></i>Code
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if project.featured %}
+                <div class="absolute top-4 right-4">
+                    <span class="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">
+                        <i class="fas fa-star mr-1"></i>Featured
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Project Content -->
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-3">{{ project.title }}</h3>
+                <p class="text-white/70 mb-4 line-clamp-3">{{ project.description }}</p>
+                
+                <!-- Tech Stack -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% if project.tech_stack %}
+                        {% for tech in project.tech_stack.split(',') %}
+                        <span class="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium">{{ tech.strip() }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span class="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium">Python</span>
+                        <span class="px-3 py-1 bg-blue-400/20 text-blue-400 rounded-full text-sm font-medium">Flask</span>
+                        <span class="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm font-medium">PostgreSQL</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Fallback projects if none in database -->
+        <div class="project-card glassmorphism rounded-2xl overflow-hidden scroll-animate group" data-category="web">
+            <div class="project-image relative overflow-hidden">
+                <img src="{{ url_for('static', filename='images/projects/hotel-management.jpg') }}" alt="Hotel Management System" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 bg-cyan-400 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-cyan-500 transition-colors">
+                                <i class="fas fa-external-link-alt mr-1"></i>Demo
+                            </a>
+                            <a href="#" class="flex-1 bg-gray-700 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-github mr-1"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute top-4 right-4">
+                    <span class="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">
+                        <i class="fas fa-star mr-1"></i>Featured
+                    </span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-3">Guesthouse/Hotel Management System</h3>
+                <p class="text-white/70 mb-4">Full-stack web app using Flask, PostgreSQL, Tailwind, HTMX, Alpine.js with guest check-in/out, room tracking, bookings, and invoice generation.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium">Python</span>
+                    <span class="px-3 py-1 bg-blue-400/20 text-blue-400 rounded-full text-sm font-medium">Flask</span>
+                    <span class="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm font-medium">PostgreSQL</span>
+                    <span class="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-sm font-medium">Tailwind</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card glassmorphism rounded-2xl overflow-hidden scroll-animate group" data-category="web ai">
+            <div class="project-image relative overflow-hidden">
+                <img src="{{ url_for('static', filename='images/projects/chat-app.jpg') }}" alt="Chat Application" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 bg-cyan-400 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-cyan-500 transition-colors">
+                                <i class="fas fa-external-link-alt mr-1"></i>Demo
+                            </a>
+                            <a href="#" class="flex-1 bg-gray-700 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-github mr-1"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-3">WhatsApp-like Web Chat Application</h3>
+                <p class="text-white/70 mb-4">End-to-end encrypted messaging with AI features using Flask, Socket.IO, and WebRTC for voice/video calls.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium">Python</span>
+                    <span class="px-3 py-1 bg-blue-400/20 text-blue-400 rounded-full text-sm font-medium">Flask</span>
+                    <span class="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm font-medium">Socket.IO</span>
+                    <span class="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-sm font-medium">OpenAI</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card glassmorphism rounded-2xl overflow-hidden scroll-animate group" data-category="web">
+            <div class="project-image relative overflow-hidden">
+                <img src="{{ url_for('static', filename='images/projects/manga-website.jpg') }}" alt="Manga Website" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 bg-cyan-400 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-cyan-500 transition-colors">
+                                <i class="fas fa-external-link-alt mr-1"></i>Demo
+                            </a>
+                            <a href="#" class="flex-1 bg-gray-700 text-white py-2 px-3 rounded text-sm text-center font-semibold hover:bg-gray-600 transition-colors">
+                                <i class="fab fa-github mr-1"></i>Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-3">Manga Reading Website</h3>
+                <p class="text-white/70 mb-4">Web platform with user and admin modules using Flask/Django, PostgreSQL with authentication and role-based access control.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-cyan-400/20 text-cyan-400 rounded-full text-sm font-medium">Python</span>
+                    <span class="px-3 py-1 bg-blue-400/20 text-blue-400 rounded-full text-sm font-medium">Django</span>
+                    <span class="px-3 py-1 bg-green-400/20 text-green-400 rounded-full text-sm font-medium">PostgreSQL</span>
+                    <span class="px-3 py-1 bg-purple-400/20 text-purple-400 rounded-full text-sm font-medium">HTML/CSS/JS</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- View More Projects Button -->
+    <div class="text-center mt-12 scroll-animate">
+        <button id="loadMoreProjects" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-lg">
+            <i class="fas fa-eye mr-2"></i>
+            View All Projects
+        </button>
+    </div>
+</div>
