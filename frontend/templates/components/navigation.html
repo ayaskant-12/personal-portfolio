@@ -1,0 +1,43 @@
+<nav class="fixed top-0 w-full z-40 glassmorphism border-b border-white/10">
+    <div class="container mx-auto px-6">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo -->
+            <a href="#home" class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-orbitron">
+                AYASKANT
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link" data-text="Home">Home</a>
+                <a href="#about" class="nav-link" data-text="About">About</a>
+                <a href="#skills" class="nav-link" data-text="Skills">Skills</a>
+                <a href="#projects" class="nav-link" data-text="Projects">Projects</a>
+                <a href="#contact" class="nav-link" data-text="Contact">Contact</a>
+            </div>
+
+            <!-- Admin Login (Desktop) -->
+            <div class="hidden md:block">
+                <a href="/admin/login" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300">
+                    Admin
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuButton" class="md:hidden text-white p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden py-4 border-t border-white/10">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link-mobile">Home</a>
+                <a href="#about" class="nav-link-mobile">About</a>
+                <a href="#skills" class="nav-link-mobile">Skills</a>
+                <a href="#projects" class="nav-link-mobile">Projects</a>
+                <a href="#contact" class="nav-link-mobile">Contact</a>
+                <a href="/admin/login" class="nav-link-mobile text-cyan-400">Admin Login</a>
+            </div>
+        </div>
+    </div>
+</nav>
