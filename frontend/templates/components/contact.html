@@ -1,0 +1,174 @@
+<div class="container mx-auto px-6">
+    <!-- Section Title -->
+    <div class="text-center mb-16 scroll-animate">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-orbitron">
+            Get In <span class="text-gradient">Touch</span>
+        </h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"></div>
+        <p class="text-white/70 text-lg mt-4 max-w-2xl mx-auto">
+            I'm always open to discussing new opportunities, innovative ideas, or potential collaborations. 
+            Feel free to reach out if you have any questions or just want to connect!
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Information -->
+        <div class="scroll-animate animate-slide-left">
+            <div class="glassmorphism rounded-2xl p-8 neon-hover">
+                <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                    <i class="fas fa-paper-plane text-cyan-400 mr-3"></i>
+                    Let's Talk
+                </h3>
+                
+                <!-- Contact Details -->
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold">Email</h4>
+                            <a href="mailto:{{ bio.email if bio else 'ayaskant2003@gmail.com' }}" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
+                                {{ bio.email if bio else 'ayaskant2003@gmail.com' }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                        <div class="w-12 h-12 bg-blue-400/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-phone text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold">Phone</h4>
+                            <a href="tel:{{ bio.phone if bio else '+917008412057' }}" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                                {{ bio.phone if bio else '+91 7008412057' }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                        <div class="w-12 h-12 bg-purple-400/20 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold">Location</h4>
+                            <p class="text-purple-400">{{ bio.location if bio else 'Bhubaneswar, India' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Follow Me</h4>
+                    <div class="flex space-x-4">
+                        {% for link in social_links %}
+                        <a href="{{ link.url }}" target="_blank" class="w-12 h-12 glassmorphism rounded-full flex items-center justify-center text-white hover:text-cyan-400 hover:neon-glow transition-all duration-300 transform hover:scale-110">
+                            <i class="{{ link.icon_class }} text-xl"></i>
+                        </a>
+                        {% else %}
+                        <a href="https://linkedin.com/in/ayaskant-dash" target="_blank" class="w-12 h-12 glassmorphism rounded-full flex items-center justify-center text-white hover:text-cyan-400 hover:neon-glow transition-all duration-300 transform hover:scale-110">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="https://github.com/ayaskant-12" target="_blank" class="w-12 h-12 glassmorphism rounded-full flex items-center justify-center text-white hover:text-cyan-400 hover:neon-glow transition-all duration-300 transform hover:scale-110">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="mailto:ayaskant2003@gmail.com" class="w-12 h-12 glassmorphism rounded-full flex items-center justify-center text-white hover:text-cyan-400 hover:neon-glow transition-all duration-300 transform hover:scale-110">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="scroll-animate animate-slide-right">
+            <form id="contactForm" class="glassmorphism rounded-2xl p-8 neon-hover">
+                <div class="mb-6">
+                    <label for="name" class="block text-white font-semibold mb-3">
+                        <i class="fas fa-user mr-2"></i>Your Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        class="w-full form-input rounded-lg px-4 py-3"
+                        placeholder="Enter your full name"
+                    >
+                </div>
+
+                <div class="mb-6">
+                    <label for="email" class="block text-white font-semibold mb-3">
+                        <i class="fas fa-envelope mr-2"></i>Your Email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        class="w-full form-input rounded-lg px-4 py-3"
+                        placeholder="Enter your email address"
+                    >
+                </div>
+
+                <div class="mb-6">
+                    <label for="subject" class="block text-white font-semibold mb-3">
+                        <i class="fas fa-tag mr-2"></i>Subject
+                    </label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        class="w-full form-input rounded-lg px-4 py-3"
+                        placeholder="What's this about?"
+                    >
+                </div>
+
+                <div class="mb-6">
+                    <label for="message" class="block text-white font-semibold mb-3">
+                        <i class="fas fa-comment mr-2"></i>Your Message
+                    </label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        rows="5" 
+                        required 
+                        class="w-full form-input rounded-lg px-4 py-3 resize-none"
+                        placeholder="Tell me about your project or just say hello..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Send Message
+                </button>
+
+                <div id="formMessage" class="mt-4 p-4 rounded-lg hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Map/Additional Info -->
+    <div class="mt-12 scroll-animate">
+        <div class="glassmorphism rounded-2xl p-8 text-center neon-hover">
+            <h3 class="text-2xl font-bold text-white mb-4">Ready to Start Your Project?</h3>
+            <p class="text-white/70 mb-6 max-w-2xl mx-auto">
+                I'm currently available for freelance work, internships, and full-time opportunities. 
+                Whether you need a website, web application, or technical consultation, I'd love to hear about your project.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:{{ bio.email if bio else 'ayaskant2003@gmail.com' }}" class="btn-primary px-8 py-3 rounded-lg font-semibold inline-flex items-center justify-center">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Send Email
+                </a>
+                <a href="{{ bio.resume_url if bio and bio.resume_url else '#' }}" 
+                   class="btn-secondary px-8 py-3 rounded-lg font-semibold inline-flex items-center justify-center"
+                   target="_blank">
+                    <i class="fas fa-file-download mr-2"></i>
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
