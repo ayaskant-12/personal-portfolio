@@ -69,9 +69,12 @@ Git installed on your system
 Clone the repository
 
 bash
+
 ```git clone https://github.com/ayaskant-12/portfolio-website.git ```
 ```cd portfolio-website```
+
 create a virtual environment
+
 ```# Create virtual environment```
 ```python -m venv venv```
 ```# Activate virtual environment```
@@ -79,13 +82,21 @@ create a virtual environment
 ```venv\Scripts\activate```
 ```# macOS/Linux:```
 ```source venv/bin/activate```
+
 Install dependencies
+
 ```pip install -r backend/requirements.txt```
+
 Initialize the Database
+
 ```# Make sure you're in the project root and virtual environment is activated```
 ```python backend/database/init_db.py```
+
 Run the Application
+
 ```# Make sure you're in the project root```
 ```python backend/app.py```
+
 Open in browser
+
 Navigate to http://localhost:5000 or the specified local URL
