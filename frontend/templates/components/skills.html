@@ -1,0 +1,178 @@
+<div class="container mx-auto px-6">
+    <!-- Section Title -->
+    <div class="text-center mb-16 scroll-animate">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-orbitron">
+            My <span class="text-gradient">Skills</span>
+        </h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto"></div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Technical Skills -->
+        <div class="scroll-animate">
+            <h3 class="text-2xl font-bold text-white mb-8 flex items-center">
+                <i class="fas fa-code text-cyan-400 mr-3"></i>
+                Technical Skills
+            </h3>
+            
+            <div class="space-y-6">
+                {% for skill in skills %}
+                <div class="skill-item group">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <i class="{{ skill.icon_class }} text-cyan-400 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">{{ skill.skill_name }}</span>
+                        </div>
+                        <span class="text-cyan-400 font-bold">{{ skill.proficiency_level }}%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-level="{{ skill.proficiency_level }}"></div>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Fallback skills if none in database -->
+                <div class="skill-item group">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <i class="fab fa-python text-cyan-400 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">Python</span>
+                        </div>
+                        <span class="text-cyan-400 font-bold">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-level="85"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item group">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <i class="fab fa-js-square text-yellow-400 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">JavaScript</span>
+                        </div>
+                        <span class="text-cyan-400 font-bold">80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-level="80"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item group">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-flask text-white mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">Flask</span>
+                        </div>
+                        <span class="text-cyan-400 font-bold">75%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-level="75"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-item group">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center">
+                            <i class="fab fa-react text-blue-400 mr-3 text-lg"></i>
+                            <span class="text-white font-semibold text-lg">React</span>
+                        </div>
+                        <span class="text-cyan-400 font-bold">70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-level="70"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Tools & Technologies -->
+        <div class="scroll-animate">
+            <h3 class="text-2xl font-bold text-white mb-8 flex items-center">
+                <i class="fas fa-tools text-blue-400 mr-3"></i>
+                Tools & Technologies
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+                <!-- Technology Items -->
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fab fa-python text-4xl text-cyan-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">Python</h4>
+                </div>
+                
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fab fa-js-square text-4xl text-yellow-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">JavaScript</h4>
+                </div>
+                
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fab fa-react text-4xl text-blue-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">React</h4>
+                </div>
+                
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fas fa-database text-4xl text-green-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">PostgreSQL</h4>
+                </div>
+                
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fab fa-aws text-4xl text-orange-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">AWS</h4>
+                </div>
+                
+                <div class="tech-item glassmorphism rounded-xl p-4 text-center hover-lift neon-hover">
+                    <i class="fab fa-docker text-4xl text-blue-400 mb-3"></i>
+                    <h4 class="text-white font-semibold">Docker</h4>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-award text-purple-400 mr-3"></i>
+                Certifications
+            </h3>
+            
+            <div class="space-y-4">
+                <div class="glassmorphism rounded-xl p-6 hover-lift neon-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-network-wired text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg mb-1">CCNA: Enterprise Networking, Security, and Automation</h4>
+                            <p class="text-cyan-400 mb-2">Cisco - Professional-level networking certification</p>
+                            <p class="text-white/70 text-sm">Covering enterprise infrastructure, security protocols, and network automation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-xl p-6 hover-lift neon-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-blue-400/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fas fa-cloud text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg mb-1">AWS Academy Graduate</h4>
+                            <p class="text-blue-400 mb-2">Amazon Web Services - AWS Academy Introduction to Cloud Semester 1</p>
+                            <p class="text-white/70 text-sm">Comprehensive cloud foundations program covering core AWS services and cloud computing concepts</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-xl p-6 hover-lift neon-hover">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 bg-purple-400/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fab fa-salesforce text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg mb-1">Salesforce Developer Virtual Internship</h4>
+                            <p class="text-purple-400 mb-2">Salesforce</p>
+                            <p class="text-white/70 text-sm">Hands-on virtual internship with project-based experience in Salesforce development platform</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
