@@ -1,0 +1,501 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block page_title %}Dashboard Overview{% endblock %}
+{% block page_subtitle %}Welcome back, {{ current_user.username }}!{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Projects Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Total Projects</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.projects_count }}</h3>
+                <p class="text-cyan-400 text-sm mt-1">Portfolio Items</p>
+            </div>
+            <div class="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-project-diagram text-cyan-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-cyan-400 h-2 rounded-full" data-percentage="{{ (stats.projects_count / 10 * 100) if stats.projects_count < 10 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_projects') }}" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center">
+                Manage Projects
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Skills Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Skills & Technologies</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.skills_count }}</h3>
+                <p class="text-blue-400 text-sm mt-1">Technical Skills</p>
+            </div>
+            <div class="w-12 h-12 bg-blue-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-code text-blue-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-blue-400 h-2 rounded-full" data-percentage="{{ (stats.skills_count / 15 * 100) if stats.skills_count < 15 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_skills') }}" class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center">
+                Manage Skills
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Certifications Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Certifications</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.certifications_count }}</h3>
+                <p class="text-orange-400 text-sm mt-1">Professional Certs</p>
+            </div>
+            <div class="w-12 h-12 bg-orange-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-certificate text-orange-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-orange-400 h-2 rounded-full" data-percentage="{{ (stats.certifications_count / 8 * 100) if stats.certifications_count < 8 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_certifications') }}" class="text-orange-400 hover:text-orange-300 text-sm font-semibold flex items-center">
+                Manage Certifications
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Tools & Technologies Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Tools & Tech</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.tools_count }}</h3>
+                <p class="text-indigo-400 text-sm mt-1">Technologies</p>
+            </div>
+            <div class="w-12 h-12 bg-indigo-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-tools text-indigo-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-indigo-400 h-2 rounded-full" data-percentage="{{ (stats.tools_count / 20 * 100) if stats.tools_count < 20 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_tools') }}" class="text-indigo-400 hover:text-indigo-300 text-sm font-semibold flex items-center">
+                Manage Tools
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Education Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Education</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.education_count }}</h3>
+                <p class="text-green-400 text-sm mt-1">Qualifications</p>
+            </div>
+            <div class="w-12 h-12 bg-green-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-graduation-cap text-green-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-green-400 h-2 rounded-full" data-percentage="{{ (stats.education_count / 5 * 100) if stats.education_count < 5 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_education') }}" class="text-green-400 hover:text-green-300 text-sm font-semibold flex items-center">
+                Manage Education
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Let's Talk Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Let's Talk</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.lets_talk_count }}</h3>
+                <p class="text-pink-400 text-sm mt-1">Contact Methods</p>
+            </div>
+            <div class="w-12 h-12 bg-pink-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-comments text-pink-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-pink-400 h-2 rounded-full" data-percentage="{{ (stats.lets_talk_count / 6 * 100) if stats.lets_talk_count < 6 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_lets_talk') }}" class="text-pink-400 hover:text-pink-300 text-sm font-semibold flex items-center">
+                Manage Let's Talk
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Messages Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Unread Messages</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.unread_messages }}</h3>
+                <p class="text-purple-400 text-sm mt-1">Need Attention</p>
+            </div>
+            <div class="w-12 h-12 bg-purple-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-envelope text-purple-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-purple-400 h-2 rounded-full" data-percentage="{{ (stats.unread_messages / 5 * 100) if stats.unread_messages < 5 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_messages') }}" class="text-purple-400 hover:text-purple-300 text-sm font-semibold flex items-center">
+                View Messages
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Total Messages Card -->
+    <div class="glassmorphism rounded-2xl p-6 neon-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/70 text-sm mb-1">Total Messages</p>
+                <h3 class="text-3xl font-bold text-white">{{ stats.total_messages }}</h3>
+                <p class="text-yellow-400 text-sm mt-1">All Time</p>
+            </div>
+            <div class="w-12 h-12 bg-yellow-400/20 rounded-full flex items-center justify-center">
+                <i class="fas fa-comments text-yellow-400 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="w-full bg-white/10 rounded-full h-2">
+                <div class="stat-progress bg-yellow-400 h-2 rounded-full" data-percentage="{{ (stats.total_messages / 20 * 100) if stats.total_messages < 20 else 100 }}" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_messages') }}" class="text-yellow-400 hover:text-yellow-300 text-sm font-semibold flex items-center">
+                Message History
+                <i class="fas fa-arrow-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Quick Actions -->
+    <div class="glassmorphism rounded-2xl p-6">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <i class="fas fa-bolt text-yellow-400 mr-3"></i>
+            Quick Actions
+        </h3>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Projects -->
+            <a href="{{ url_for('admin.manage_projects') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-cyan-400/30 transition-colors">
+                    <i class="fas fa-plus text-cyan-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Add Project</p>
+            </a>
+            
+            <!-- Skills -->
+            <a href="{{ url_for('admin.manage_skills') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-400/30 transition-colors">
+                    <i class="fas fa-edit text-blue-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Edit Skills</p>
+            </a>
+            
+            <!-- Certifications -->
+            <a href="{{ url_for('admin.manage_certifications') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-orange-400/30 transition-colors">
+                    <i class="fas fa-certificate text-orange-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Add Certification</p>
+            </a>
+            
+            <!-- Tools & Technologies -->
+            <a href="{{ url_for('admin.manage_tools') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-indigo-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-indigo-400/30 transition-colors">
+                    <i class="fas fa-tools text-indigo-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Manage Tools</p>
+            </a>
+            
+            <!-- Education -->
+            <a href="{{ url_for('admin.manage_education') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-green-400/30 transition-colors">
+                    <i class="fas fa-graduation-cap text-green-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Add Education</p>
+            </a>
+            
+            <!-- Let's Talk -->
+            <a href="{{ url_for('admin.manage_lets_talk') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-pink-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-pink-400/30 transition-colors">
+                    <i class="fas fa-comment-alt text-pink-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Let's Talk</p>
+            </a>
+            
+            <!-- Bio -->
+            <a href="{{ url_for('admin.manage_bio') }}" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-400/30 transition-colors">
+                    <i class="fas fa-user-edit text-purple-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">Update Bio</p>
+            </a>
+            
+            <!-- View Site -->
+            <a href="{{ url_for('index') }}" target="_blank" class="p-4 glassmorphism rounded-lg text-center hover:neon-glow transition-all duration-300 group">
+                <div class="w-12 h-12 bg-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
+                    <i class="fas fa-eye text-yellow-400 text-lg"></i>
+                </div>
+                <p class="text-white font-semibold">View Site</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="glassmorphism rounded-2xl p-6">
+        <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+            <i class="fas fa-chart-line text-cyan-400 mr-3"></i>
+            Recent Activity
+        </h3>
+        
+        <div class="space-y-4">
+            <!-- Projects Activity -->
+            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-cyan-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-project-diagram text-cyan-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Projects Updated</p>
+                        <p class="text-white/60 text-sm">{{ stats.projects_count }} active projects</p>
+                    </div>
+                </div>
+                <span class="text-cyan-400 text-sm">Just now</span>
+            </div>
+            
+            <!-- Skills Activity -->
+            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-code text-blue-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Skills Management</p>
+                        <p class="text-white/60 text-sm">{{ stats.skills_count }} skills configured</p>
+                    </div>
+                </div>
+                <span class="text-blue-400 text-sm">Today</span>
+            </div>
+            
+            <!-- Certifications Activity -->
+            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-orange-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-certificate text-orange-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Certifications</p>
+                        <p class="text-white/60 text-sm">{{ stats.certifications_count }} professional certs</p>
+                    </div>
+                </div>
+                <span class="text-orange-400 text-sm">Active</span>
+            </div>
+            
+            <!-- Tools Activity -->
+            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-indigo-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-tools text-indigo-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Tools & Technologies</p>
+                        <p class="text-white/60 text-sm">{{ stats.tools_count }} technologies listed</p>
+                    </div>
+                </div>
+                <span class="text-indigo-400 text-sm">Updated</span>
+            </div>
+            
+            <!-- Education Activity -->
+            <div class="flex items-center justify-between p-4 rounded-lg bg-white/5">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-graduation-cap text-green-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">Education</p>
+                        <p class="text-white/60 text-sm">{{ stats.education_count }} qualifications</p>
+                    </div>
+                </div>
+                <span class="text-green-400 text-sm">Complete</span>
+            </div>
+            
+            <!-- Messages Activity -->
+            {% if stats.unread_messages > 0 %}
+            <div class="flex items-center justify-between p-4 rounded-lg bg-purple-400/10 border border-purple-400/20">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-400/20 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-envelope text-purple-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold">New Messages</p>
+                        <p class="text-purple-400 text-sm">{{ stats.unread_messages }} unread messages</p>
+                    </div>
+                </div>
+                <span class="text-purple-400 text-sm">Attention needed</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-white/10">
+            <a href="{{ url_for('admin.manage_messages') }}" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold flex items-center justify-center">
+                View All Activity
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- System Status -->
+<div class="mt-8 glassmorphism rounded-2xl p-6">
+    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+        <i class="fas fa-server text-green-400 mr-3"></i>
+        System Status
+    </h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center p-4 rounded-lg bg-white/5">
+            <div class="w-16 h-16 bg-green-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-database text-green-400 text-2xl"></i>
+            </div>
+            <h4 class="text-white font-bold mb-2">Database</h4>
+            <p class="text-green-400 text-sm">Connected & Healthy</p>
+        </div>
+        
+        <div class="text-center p-4 rounded-lg bg-white/5">
+            <div class="w-16 h-16 bg-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-shield-alt text-blue-400 text-2xl"></i>
+            </div>
+            <h4 class="text-white font-bold mb-2">Security</h4>
+            <p class="text-blue-400 text-sm">Protected & Encrypted</p>
+        </div>
+        
+        <div class="text-center p-4 rounded-lg bg-white/5">
+            <div class="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-rocket text-cyan-400 text-2xl"></i>
+            </div>
+            <h4 class="text-white font-bold mb-2">Performance</h4>
+            <p class="text-cyan-400 text-sm">Optimized & Fast</p>
+        </div>
+        
+        <div class="text-center p-4 rounded-lg bg-white/5">
+            <div class="w-16 h-16 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-sync-alt text-purple-400 text-2xl"></i>
+            </div>
+            <h4 class="text-white font-bold mb-2">Sync Status</h4>
+            <p class="text-purple-400 text-sm">All Systems Go</p>
+        </div>
+    </div>
+</div>
+
+<!-- Content Overview -->
+<div class="mt-8 glassmorphism rounded-2xl p-6">
+    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+        <i class="fas fa-chart-pie text-yellow-400 mr-3"></i>
+        Content Overview
+    </h3>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center">
+        <div class="p-4 rounded-lg bg-cyan-400/10">
+            <div class="text-2xl font-bold text-cyan-400 mb-1">{{ stats.projects_count }}</div>
+            <div class="text-white/80 text-sm">Projects</div>
+        </div>
+        <div class="p-4 rounded-lg bg-blue-400/10">
+            <div class="text-2xl font-bold text-blue-400 mb-1">{{ stats.skills_count }}</div>
+            <div class="text-white/80 text-sm">Skills</div>
+        </div>
+        <div class="p-4 rounded-lg bg-orange-400/10">
+            <div class="text-2xl font-bold text-orange-400 mb-1">{{ stats.certifications_count }}</div>
+            <div class="text-white/80 text-sm">Certifications</div>
+        </div>
+        <div class="p-4 rounded-lg bg-indigo-400/10">
+            <div class="text-2xl font-bold text-indigo-400 mb-1">{{ stats.tools_count }}</div>
+            <div class="text-white/80 text-sm">Tools</div>
+        </div>
+        <div class="p-4 rounded-lg bg-green-400/10">
+            <div class="text-2xl font-bold text-green-400 mb-1">{{ stats.education_count }}</div>
+            <div class="text-white/80 text-sm">Education</div>
+        </div>
+        <div class="p-4 rounded-lg bg-pink-400/10">
+            <div class="text-2xl font-bold text-pink-400 mb-1">{{ stats.lets_talk_count }}</div>
+            <div class="text-white/80 text-sm">Contact Methods</div>
+        </div>
+        <div class="p-4 rounded-lg bg-purple-400/10">
+            <div class="text-2xl font-bold text-purple-400 mb-1">{{ stats.total_messages }}</div>
+            <div class="text-white/80 text-sm">Total Messages</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate progress bars
+    const progressBars = document.querySelectorAll('.stat-progress');
+    progressBars.forEach(bar => {
+        const percentage = bar.getAttribute('data-percentage');
+        setTimeout(() => {
+            bar.style.width = percentage + '%';
+        }, 500);
+    });
+    
+    // Add hover effects to quick action cards
+    const quickActions = document.querySelectorAll('.glassmorphism.hover\\:neon-glow');
+    quickActions.forEach(action => {
+        action.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+        });
+        
+        action.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+{% endblock %}
