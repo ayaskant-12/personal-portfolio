@@ -71,16 +71,23 @@ Clone the repository
 bash
 
 ```git clone https://github.com/ayaskant-12/portfolio-website.git ```
+
 ```cd portfolio-website```
 
 create a virtual environment
 
 ```# Create virtual environment```
+
 ```python -m venv venv```
+
 ```# Activate virtual environment```
+
 ```# Windows:```
+
 ```venv\Scripts\activate```
+
 ```# macOS/Linux:```
+
 ```source venv/bin/activate```
 
 Install dependencies
@@ -90,11 +97,13 @@ Install dependencies
 Initialize the Database
 
 ```# Make sure you're in the project root and virtual environment is activated```
+
 ```python backend/database/init_db.py```
 
 Run the Application
 
 ```# Make sure you're in the project root```
+
 ```python backend/app.py```
 
 Open in browser
