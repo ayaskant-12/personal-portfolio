@@ -1,0 +1,78 @@
+<div class="container mx-auto px-6 text-center">
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500 rounded-full filter blur-3xl opacity-20 animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute top-3/4 left-1/2 w-48 h-48 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-float" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Profile Image -->
+    <div class="relative inline-block mb-8">
+        <div class="w-48 h-48 rounded-full glassmorphism p-2 neon-glow">
+            <img 
+                src="{% if bio and bio.profile_image %}{{ url_for('static', filename=bio.profile_image) }}{% else %}{{ url_for('static', filename='images/profile.jpg') }}{% endif %}" 
+                alt="{{ bio.name if bio else 'Ayaskant Dash' }}"
+                class="w-full h-full rounded-full object-cover"
+                onerror="this.src='{{ url_for('static', filename='images/profile.jpg') }}'"
+            >
+        </div>
+        <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl neon-glow">
+            <i class="fas fa-code"></i>
+        </div>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 font-orbitron scroll-animate">
+        AYASKANT <span class="text-gradient">DASH</span>
+    </h1>
+
+    <!-- Dynamic Typing Text -->
+    <div class="text-xl md:text-3xl text-white mb-8 h-12 scroll-animate">
+        <span class="text-cyan-400">I'm a </span>
+        <span id="heroTitle" class="font-bold text-gradient"></span>
+    </div>
+
+    <!-- Tagline -->
+    <p class="text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed scroll-animate">
+        {{ bio.tagline if bio else "Computer Science undergraduate with hands-on experience in full-stack development, cloud computing, and AI-powered applications." }}
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center scroll-animate">
+        <a href="#projects" class="btn-primary px-8 py-4 rounded-lg font-semibold text-lg">
+            <i class="fas fa-rocket mr-2"></i>
+            View My Work
+        </a>
+        <a href="#contact" class="btn-secondary px-8 py-4 rounded-lg font-semibold text-lg">
+            <i class="fas fa-paper-plane mr-2"></i>
+            Get In Touch
+        </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 max-w-2xl mx-auto scroll-animate" data-stagger="true">
+        <div class="text-center stagger-animate">
+            <div class="text-3xl font-bold text-cyan-400 mb-2">{{ projects|length if projects else '3' }}+</div>
+            <div class="text-white/70">Projects</div>
+        </div>
+        <div class="text-center stagger-animate">
+            <div class="text-3xl font-bold text-blue-400 mb-2">{{ skills|length if skills else '8' }}+</div>
+            <div class="text-white/70">Skills</div>
+        </div>
+        <div class="text-center stagger-animate">
+            <div class="text-3xl font-bold text-purple-400 mb-2">2+</div>
+            <div class="text-white/70">Years</div>
+        </div>
+        <div class="text-center stagger-animate">
+            <div class="text-3xl font-bold text-green-400 mb-2">5+</div>
+            <div class="text-white/70">Technologies</div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#about" class="text-white/70 hover:text-cyan-400 transition-colors duration-300">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </a>
+    </div>
+</div>
