@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        {% include 'components/hero.html' %}
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        {% include 'components/about.html' %}
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        {% include 'components/skills.html' %}
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        {% include 'components/projects.html' %}
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        {% include 'components/contact.html' %}
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Additional page-specific JavaScript can go here
+</script>
+{% endblock %}
